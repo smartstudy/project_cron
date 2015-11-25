@@ -1,0 +1,4 @@
+pyobjc-core
+pyobjc-framework-cocoa
+py-applescript
+py2app
