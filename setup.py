@@ -11,6 +11,7 @@ APP = ['main.py']
 APP_NAME = 'Project Cron'
 DATA_FILES = ['icon.png']
 VERSION = '0.1'
+BUILD_NUMBER = 4
 OPTIONS = {
     'argv_emulation': True,
     'plist': 'Info.plist',
