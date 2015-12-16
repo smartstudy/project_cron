@@ -1,4 +1,4 @@
-from props import path
+import os
 from datetime import datetime
 
 
@@ -15,4 +15,6 @@ def newline():
 
 
 def _write(line):
-    open(path.LOG, 'a', encoding='utf8').write(line)
+    USER_ROOT = os.path.expanduser('~')
+    DOCUMENTS = os.path.join(USER_ROOT, 'Documents')
+    open(os.path.join(DOCUMENTS, 'project_cron.log'), 'a', encoding='utf8') .write(line)
