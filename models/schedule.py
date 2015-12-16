@@ -56,7 +56,6 @@ class Schedule:
         return self.execute_actions()
 
     def execute_actions(self):
-        fileutil.cleanup()
         logutil.info(self.name, 'Execute')
         parameters = {}.copy()
         for action in self.actions:
