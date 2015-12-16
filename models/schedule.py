@@ -8,6 +8,8 @@ class Schedule:
         self._schedule_info = schedule_info
         self._time_reserved = None
 
+        self.reset()
+
     def reset(self):
         logutil.info(self.name, 'Initialize')
         if self.time == 'Always':
