@@ -1,8 +1,8 @@
 import os
 import shutil
-import setup
-from utils import processutil
 
+import setup
+from project_cron.utils import processutil
 
 USER_ROOT = os.path.expanduser('~')
 APP_NAME = setup.APP_NAME + '.app'

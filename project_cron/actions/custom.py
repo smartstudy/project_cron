@@ -1,4 +1,4 @@
-from utils import processutil, logutil
+from project_cron.utils import processutil, logutil
 
 
 def call(parameters):

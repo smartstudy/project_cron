@@ -1,10 +1,11 @@
-import os
 import json
-from threading import Timer
-from utils import logutil
+import os
 from AppKit import NSApplication, NSStatusBar, NSMenu, NSMenuItem, NSVariableStatusItemLength, NSImage
 from PyObjCTools import AppHelper
-from models import Schedule
+from project_cron.models import Schedule
+from threading import Timer
+
+from project_cron.utils import logutil
 
 
 class App(NSApplication):

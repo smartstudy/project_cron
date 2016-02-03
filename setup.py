@@ -15,7 +15,7 @@ BUILD_NUMBER = 4
 OPTIONS = {
     'argv_emulation': True,
     'plist': 'Info.plist',
-    'packages': ['actions', 'models', 'utils']
+    'packages': ['project_cron']
 }
 
 if __name__ == "__main__":
