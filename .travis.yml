@@ -5,6 +5,10 @@ language: python
 python:
   - '3.4'
 
+before_install:
+  - brew update
+  - brew outdated xctool || brew upgrade xctool
+
 install:
   - pip install -r requirements.txt
   - pip install pytest-cov
