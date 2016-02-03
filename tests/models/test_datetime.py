@@ -1,5 +1,6 @@
 import unittest
-from models.datetime import DateTime
+
+from project_cron.models import DateTime
 
 
 class TestDateTime(unittest.TestCase):

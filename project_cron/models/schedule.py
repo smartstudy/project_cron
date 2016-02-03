@@ -1,12 +1,15 @@
-from models import DateTime
-from utils import logutil
 from importlib import import_module
+from multiprocessing import Process
+
+from project_cron.utils import logutil
+from project_cron.models import DateTime
 
 
 class Schedule:
     def __init__(self, schedule_info):
         self._schedule_info = schedule_info
         self._time_reserved = None
+        self._process = None
 
         self.reset()
 
@@ -49,15 +52,20 @@ class Schedule:
 
     def execute(self):
         if not self.is_reservation_time_passed():
-            return False
+            return
 
         self.update_reserved_time()
-        if not self.is_valid():
-            return False
-
-        return self.execute_actions()
+        self.execute_actions()
 
     def execute_actions(self):
+        if self.is_running():
+            logutil.info('Schedule', '%s is still running' % self.name)
+            return
+
+        self._process = Process(target=self._execute())
+        self._process.start()
+
+    def _execute(self):
         logutil.info(self.name, 'Execute')
         parameters = {}.copy()
         for action in self.actions:
@@ -73,12 +81,10 @@ class Schedule:
                 logutil.error(self.name, traceback.format_exc())
                 traceback.print_exc()
                 logutil.newline()
-                return False
+                return
 
         logutil.info(self.name, 'Success')
         logutil.newline()
-
-        return True
 
     def update_reserved_time(self):
         if self.time == 'Always':
@@ -90,6 +96,9 @@ class Schedule:
 
     def is_valid(self):
         return self.is_job_scheduled_this_weekday()
+
+    def is_running(self):
+        return self._process is not None and not self._process.is_alive()
 
     def is_job_scheduled_this_weekday(self):
         return DateTime.now().weekday in self.weekdays

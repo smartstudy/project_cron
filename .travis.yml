@@ -1,0 +1,18 @@
+os: osx
+
+language: objective-c
+
+python:
+  - '3.4'
+
+before_install:
+  - brew update
+  - brew outdated xctool || brew upgrade xctool
+  - brew install python3
+
+install:
+  - pip3 install -r requirements.txt
+  - pip3 install pytest-cov
+
+script:
+  - py.test --cov-report term-missing --cov=project_cron

@@ -1,6 +1,7 @@
 import os
 from subprocess import Popen, PIPE
-from utils import logutil
+
+from project_cron.utils import logutil
 
 
 def call(command, cwd=None):

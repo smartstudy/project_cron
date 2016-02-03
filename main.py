@@ -1,11 +1,11 @@
-import os
 import json
-from threading import Timer
-from utils import logutil
+import os
 from AppKit import NSApplication, NSStatusBar, NSMenu, NSMenuItem, NSVariableStatusItemLength, NSImage
 from PyObjCTools import AppHelper
-from models import Schedule
-from time import sleep
+from project_cron.models import Schedule
+from threading import Timer
+
+from project_cron.utils import logutil
 
 
 class App(NSApplication):
@@ -58,17 +58,13 @@ class App(NSApplication):
             except:
                 import traceback
                 logutil.error(schedule.name, traceback.format_exc())
+                schedule.reset()
 
         interval = 60
         self._timer = Timer(interval, self.timer_callback)
         self._timer.start()
 
     def execute_(self, notification):
-        while self._timer is None:
-            sleep(0.1)
-        self._timer.cancel()
-        self._timer = None
-
         for schedule in self._schedules:
             if schedule.name == notification.title():
                 try:
@@ -76,8 +72,7 @@ class App(NSApplication):
                 except:
                     import traceback
                     logutil.error(schedule.name, traceback.format_exc())
-
-        self.timer_callback()
+                    schedule.reset()
 
 
 if __name__ == "__main__":
